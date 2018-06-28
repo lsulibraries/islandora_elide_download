@@ -60,11 +60,11 @@ function islandora_elide_download_toggle_link($op) {
 
 function islandora_elide_download_toggle_link_pid_or_pids() {
   module_load_include('inc', 'islandora_elide_download', 'includes/utilities');
-  foreach (array('pid', 'pid_file' as $option) {
+  foreach (array('pid', 'pid_file') as $option) {
     $option = drush_get_option($option);
   }
   if ($pid Xor $pid_file) {
-    return $pid ? array($pid) : explode(',' file_get_contents($pid_file));
+    return $pid ? array($pid) : explode(',', file_get_contents($pid_file));
   }
   else {
     throw new Exception("Must supply either --pid or --pid_file.");

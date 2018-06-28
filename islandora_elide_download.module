@@ -16,7 +16,7 @@ function islandora_elide_download_form_islandora_object_properties_form_alter(ar
     '#type' => 'checkbox',
     '#title' => t('Hide Download Link'),
     '#description' => t('Check this box to hide download link from user'),
-    '#default_value' => islandora_elide_download_is_hidden($form['pid']['#value']) ? TRUE : FALSE),
+    '#default_value' => islandora_elide_download_is_hidden($form['pid']['#value']) ? TRUE : FALSE,
   );
   array_unshift($form['#submit'], 'islandora_elide_download_hide_link');
 }
