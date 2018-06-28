@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+
+function islandora_elide_download_schema() {
+  $schema['islandora_elide_download'] = array(
+    'description' => 'List of pids to elide download link.',
+    'feilds' => array(
+      'id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The UID',
+      ),
+      'pid' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'description' => 'elided pid',
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}

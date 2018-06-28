@@ -1,0 +1,4 @@
+name = islandora elide download
+description = adds paramater to object to prevent download link.
+core = 7.x
+dependencies[] = islandora
