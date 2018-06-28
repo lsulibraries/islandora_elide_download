@@ -38,7 +38,7 @@ function islandora_elide_download_toggle_link_drush_command() {
  * Either --op=elide or --op=enable.
  */
 
-function islandora_elide_download_toggle_link($op) {
+function islandora_elide_download_drush_toggle_link($op) {
   $ops = array('enable', 'elide');
   if (!in_array($op, $ops)) {
     throw new Exception("Argument should be either: 'enable' or 'elide'");
