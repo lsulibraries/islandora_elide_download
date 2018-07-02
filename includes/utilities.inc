@@ -5,7 +5,7 @@
  * utility functions to set pid in database or unset
  */
 
-function islandora_elide_download_toggle_elide_link($pid) {
+function islandora_elide_download_elide($pid) {
   db_insert('islandora_elide_download')
   ->fields(array('id','pid'))
   ->values(array(
@@ -15,13 +15,13 @@ function islandora_elide_download_toggle_elide_link($pid) {
   ->execute();
 }
 
-function islandora_elide_download_toggle_enable_link($pid) {
+function islandora_elide_download_enable($pid) {
   db_delete('islandora_elide_download')
   ->condition('pid', $pid)
   ->execute();
 }
 
-function islandora_elide_download_is_hidden($pid) {
+function islandora_elide_download_is_listed($pid) {
   $records = db_select('islandora_elide_download', 'elide')
   ->fields('elide', array('id','pid'))
   ->condition('pid', $pid)

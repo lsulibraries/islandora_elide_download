@@ -15,17 +15,21 @@ function islandora_elide_download_form_islandora_object_properties_form_alter(ar
     '#type' => 'checkbox',
     '#title' => t('Hide Download Link'),
     '#description' => t('Check this box to hide download link from user'),
-    '#default_value' => islandora_elide_download_is_hidden($form['pid']['#value']),
+    '#default_value' => islandora_elide_download_is_listed($form['pid']['#value']),
   );
     array_unshift($form['#submit'], 'islandora_elide_download_submit_handler');
 }
 
 /**
  * Implement hook_islandora_object_ingested().
+ * //works like a charm with one item and works with gui batch ingest
  */
 
 function islandora_elide_download_islandora_object_ingested($object) {
+  module_load_include('inc', 'islandora_elide_download', 'includes/utilities');
+  islandora_elide_download_toggle_elide_link($object->id);
   //$object set to either 'enabled' or 'elide' on ingest
+  //dpm('ingested: ' . $object->label );
 }
 
 
