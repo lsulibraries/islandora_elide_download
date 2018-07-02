@@ -25,12 +25,26 @@ function islandora_elide_download_form_islandora_object_properties_form_alter(ar
  * //works like a charm with one item and works with gui batch ingest
  */
 
-function islandora_elide_download_islandora_object_ingested($object) {
+// function islandora_elide_download_islandora_object_ingested($object) {
+//   module_load_include('inc', 'islandora_elide_download', 'includes/utilities');
+//   islandora_elide_download_elide($object->id);
+// }
+
+function islandora_elide_download_form_alter(&$form, &$form_state, $form_id){
   module_load_include('inc', 'islandora_elide_download', 'includes/utilities');
-  islandora_elide_download_toggle_elide_link($object->id);
-  //$object set to either 'enabled' or 'elide' on ingest
-  //dpm('ingested: ' . $object->label );
+  if($form_id == 'islandora_ingest_form'){
+    $form['toggle_elide_dl'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Hide Download Link'),
+      '#description' => t('Check this box to hide download link from user'),
+      '#default_value' => 0,
+    );
+    array_unshift($form['#submit'], 'islandora_elide_download_ingest_submit_handler');
+  }
 }
 
 
 //find islandora_importer/zip_importer form and add option to elide links for all, or enable link for all.
+function islandora_elide_download_islandora_ingest_form_alter(&$form, &$form_state){
+    //array_unshift($form['#submit'], 'islandora_elide_download_submit_handler');
+}
