@@ -62,18 +62,26 @@ function islandora_elide_download_form_alter(&$form, &$form_state, $form_id){
 * Implements hook_theme_registry_alter().
 */
 
-function islandora_elide_download_theme_registry_alter(&$theme_registry) {
-  //dpm($theme_registry);
-  $uri = request_uri();
-  $pid = urldecode(str_replace('/islandora/object/', '', $uri));
-  module_load_include('inc', 'islandora_elide_download','includes/utilities');
+// function islandora_elide_download_theme_registry_alter(&$theme_registry) {
+//   //dpm($theme_registry);
+//   $uri = request_uri();
+//   $pid = urldecode(str_replace('/islandora/object/', '', $uri));
+//   module_load_include('inc', 'islandora_elide_download','includes/utilities');
+//   if(islandora_elide_download_is_listed($pid)){
+//     if (isset($theme_registry['islandora_large_image'])) {
+//       //dpm('test');
+//       $module_path = drupal_get_path('module', 'islandora_elide_download');
+//       $theme_registry['islandora_large_image']['theme path'] = $module_path;
+//       $theme_registry['islandora_large_image']['path'] = $module_path . '/templates/';
+//     }
+//   }
+// }
+
+function islandora_elide_download_process_islandora_large_image(&$variables) {
+  $pid = $variables['islandora_object']->id;
+  module_load_include('inc', 'islandora_elide_download', 'includes/utilities');
   if(islandora_elide_download_is_listed($pid)){
-    if (isset($theme_registry['islandora_large_image'])) {
-      //dpm('test');
-      $module_path = drupal_get_path('module', 'islandora_elide_download');
-      $theme_registry['islandora_large_image']['theme path'] = $module_path;
-      $theme_registry['islandora_large_image']['path'] = $module_path . '/templates/';
-    }
+    $variables['downloads'] = [];
   }
 }
 
