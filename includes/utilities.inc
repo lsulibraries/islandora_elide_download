@@ -6,7 +6,6 @@
  */
 
 function islandora_elide_download_elide($pid) {
-  dpm('working');
   db_insert('islandora_elide_download')
   ->fields(array('id','pid'))
   ->values(array(
@@ -14,12 +13,14 @@ function islandora_elide_download_elide($pid) {
     'pid' => $pid,
   ))
   ->execute();
+  db_query("DELETE FROM {cache};");
 }
 
 function islandora_elide_download_enable($pid) {
   db_delete('islandora_elide_download')
   ->condition('pid', $pid)
   ->execute();
+  db_query("DELETE FROM {cache};");
 }
 
 function islandora_elide_download_is_listed($pid) {
