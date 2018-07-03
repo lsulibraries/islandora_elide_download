@@ -31,24 +31,29 @@ function islandora_elide_download_is_listed($pid) {
   return $hidden > 0;
 }
 
+// function islandora_elide_download_submit_handler(&$form, &$form_state) {
+//   $fn = 'islandora_elide_download_toggle_link';
+//   $arg = $form_state['input']['toggle_elide_dl'] ? 'elide': 'enable';
+//   $pid = $form_state['input']['pid'];
+//   $fn($arg,$pid);
+// }
+
 function islandora_elide_download_submit_handler(&$form, &$form_state) {
   $fn = 'islandora_elide_download_toggle_link';
+  // dpm($form_state);
   $arg = $form_state['input']['toggle_elide_dl'] ? 'elide': 'enable';
+  //if form_id is ingest...
+  // foreach ($form_state['islandora']['objects'] as $obj) {
+  //   $array = (array)$obj;
+  //   $prefix = chr(0).'*'.chr(0);
+  //   $fn($arg,$array[$prefix.'objectId']);
+  // }
   $pid = $form_state['input']['pid'];
   $fn($arg,$pid);
 }
 
-function islandora_elide_download_ingest_submit_handler(&$form, &$form_state) {
-  $fn = 'islandora_elide_download_toggle_link';
-  $arg = $form_state['toggle_elide_dl'] ? 'elide': 'enable';
-  if($form_stato['toggle_elide_dl'] == 1){
-    dpm('woah');
-  }
-  $obj_pid =islandora_elide_download_islandora_object_ingested();
-  $fn($arg,$obj_pid);
-}
-
 function islandora_elide_download_islandora_object_ingested(&$object) {
+  //dpm($object->pid);
   return $object->pid;
 }
 
