@@ -13,14 +13,16 @@ function islandora_elide_download_elide($pid) {
     'pid' => $pid,
   ))
   ->execute();
-  db_query("DELETE FROM {cache};");
+  drupal_theme_rebuild();
+  //db_query("DELETE FROM {cache};");
 }
 
 function islandora_elide_download_enable($pid) {
   db_delete('islandora_elide_download')
   ->condition('pid', $pid)
   ->execute();
-  db_query("DELETE FROM {cache};");
+  drupal_theme_rebuild();
+  //db_query("DELETE FROM {cache};");
 }
 
 function islandora_elide_download_is_listed($pid) {
