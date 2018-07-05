@@ -21,7 +21,7 @@ function islandora_elide_download_form_islandora_object_properties_form_alter(ar
 }
 
 
-function islandora_elide_download_form_alter(&$form, &$form_state, $form_id){
+function islandora_elide_download_ingest_form_alter(&$form, &$form_state, $form_id){
   module_load_include('inc', 'islandora_elide_download', 'includes/utilities');
   if($form_id == 'islandora_ingest_form') {
     $form['toggle_elide_dl'] = array(
@@ -30,7 +30,7 @@ function islandora_elide_download_form_alter(&$form, &$form_state, $form_id){
       '#description' => t('Check this box to hide download link from user'),
       '#default_value' => 0,
     );
-    array_push($form['#submit'], 'islandora_elide_download_submit_handler');
+    array_push($form['#submit'], 'islandora_elide_download_ingest_submit_handler');
   }
 }
 
@@ -46,6 +46,33 @@ function islandora_elide_download_process_islandora_large_image(&$variables) {
     $variables['downloads'] = [];
   }
 }
+
+/**
+ * submit handler for objcet properties form.
+ * checks form for checkbox option,
+ * apply checkbox operation to object by calling toggle_link function
+ */
+
+function islandora_elide_download_submit_handler(&$form, &$form_state, $form_id) {
+  module_load_include('inc', 'islandora_elide_download', 'includes/utilities');
+  if ($form_id == 'islandora_object_properties') {
+    $fn = 'islandora_elide_download_toggle_link';
+    $arg = $form_state['input']['toggle_elide_dl'] ? 'elide': 'enable';
+    $pid = $form_state['input']['pid'];
+    $fn($arg,$pid);
+  }
+}
+
+//unfortunately this part seems iffy
+
+function islandora_elide_download_ingest_submit_handler(&$form, &$form_state, $form_id) {
+  module_load_include('inc', 'islandora_elide_download', 'includes/utilities');
+  $fn = 'islandora_elide_download_toggle_link';
+  $arg = $form_state['toggle_elide_dl'] ? 'elide': 'enable';
+  $pid = $form_state['islandora']['objectid'];
+  $fn($arg,$pid);
+}
+
 
 //way to go forward is not to alter things upon ingest.
 //I have seen no examples of modules in our repository, or online

@@ -53,20 +53,6 @@ function islandora_elide_download_is_listed($pid) {
   return $hidden > 0;
 }
 
-/**
- * submit handler for objcet properties form.
- * checks form for checkbox option,
- * apply checkbox operation to object by calling toggle_link function
- */
-
-function islandora_elide_download_submit_handler(&$form, &$form_state, $form_id) {
-  if ($form_id == 'islandora_object_properties') {
-    $fn = 'islandora_elide_download_toggle_link';
-    $arg = $form_state['input']['toggle_elide_dl'] ? 'elide': 'enable';
-    $pid = $form_state['input']['pid'];
-    $fn($arg,$pid);
-  }
-}
 
 /**
  * @param string
@@ -81,18 +67,3 @@ function islandora_elide_download_toggle_link($op, $pid) {
   $fn = 'islandora_elide_download_' . $op ;
   return $fn($pid);
 }
-
-// function islandora_elide_download_submit_handler(&$form, &$form_state $form_id) {
-//   $fn = 'islandora_elide_download_toggle_link';
-//   $arg = $form_state['input']['toggle_elide_dl'] ? 'elide': 'enable';
-//   $pid = $form_state['input']['pid'];
-//  if form_id is ingest...
-// if ($form_id == 'islandora_ingest_form') {
-// foreach ($form_state['islandora']['objects'] as $obj) {
-//   $array = (array)$obj;
-//   $prefix = chr(0).'*'.chr(0);
-//   $fn($arg,$array[$prefix.'objectId']);
-// }
-// }
-//   $fn($arg,$pid);
-// }
