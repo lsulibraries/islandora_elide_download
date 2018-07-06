@@ -67,3 +67,31 @@ function islandora_elide_download_toggle_link($op, $pid) {
   $fn = 'islandora_elide_download_' . $op ;
   return $fn($pid);
 }
+
+
+/**
+ * submit handler for objcet properties form.
+ * checks form for checkbox option,
+ * apply checkbox operation to object by calling toggle_link function
+ */
+
+function islandora_elide_download_submit_handler(&$form, &$form_state) {
+  module_load_include('inc', 'islandora_elide_download', 'includes/utilities');
+  if ($form_state['input']['form_id'] == 'islandora_object_properties_form') {
+    $fn = 'islandora_elide_download_toggle_link';
+    $arg = $form_state['input']['toggle_elide_dl'] ? 'elide': 'enable';
+    $pid = $form_state['input']['pid'];
+    $fn($arg,$pid);
+  }
+}
+
+//unfortunately this part seems iffy
+
+//function islandora_elide_download_ingest_submit_handler(&$form, &$form_state) {
+//    drupal_set_message('goddamit');
+//  module_load_include('inc', 'islandora_elide_download', 'includes/utilities');
+//  $fn = 'islandora_elide_download_toggle_link';
+//  $arg = $form_state['toggle_elide_dl'] ? 'elide': 'enable';
+//  $pid = $form_state['islandora']['objectid'];
+//  $fn($arg,$pid);
+//}
