@@ -17,8 +17,8 @@ function islandora_elide_download_drush_command() {
   $items['islandora-elide-download'] = array(
     'description' => 'Set wether an item is available for download',
     'examples' => array(
-      'drush islandora_elide_download --user=admin --op=active --pid_file=/tmp/imagepids.txt',
-      'drush islandora_elide_download --user=admin --op=active --pid=islandora-photos:1',
+      'drush islandora-elide-download --user=admin --op=active --pid_file=/tmp/imagepids.txt',
+      'drush islandora-elide-download --user=admin --op=active --pid=islandora-photos:1',
     ),
     'aliases' => array('ied'),
     'arguments' => array(
