@@ -8,7 +8,6 @@
 /**
  * Implement hook_form_islandora_object_properties_form_alter().
  */
-
 function islandora_elide_download_form_islandora_object_properties_form_alter(array &$form, array &$form_state) {
   module_load_include('inc', 'islandora_elide_download', 'includes/utilities');
   $form['toggle_elide_dl'] = array(
@@ -20,36 +19,18 @@ function islandora_elide_download_form_islandora_object_properties_form_alter(ar
     array_unshift($form['#submit'], 'islandora_elide_download_submit_handler');
 }
 
-
-// function islandora_elide_download_form_alter(&$form, &$form_state, $form_id){
-//   module_load_include('inc', 'islandora_elide_download', 'includes/utilities');
-//   if($form_id == 'islandora_ingest_form') {
-//     $form['toggle_elide_dl'] = array(
-//       '#type' => 'checkbox',
-//       '#title' => t('Hide Download Link'),
-//       '#description' => t('Check this box to hide download link from user'),
-//       '#default_value' => 0,
-//     );
-//     //dpm($form);
-//     //debug($form_id);
-//     //$form['actions']['submit']['#submit'] = 'islandora_elide_download_callback';
-//     $form['#submit'] = 'islandora_elide_download_callback';
-//   }
-// }
-
-function islandora_elide_download_islandora_ingest_form_submit(&$form, &$form_state) {
-  //dpm($form_state);
-}
-
-//implement hook_form_FORM_ID_alter().
-
+/**
+ * Implement hook_form_FORM_ID_alter().
+ */
 function islandora_elide_download_form_islandora_ingest_form_alter(&$form, &$form_state) {
   //debug($form);
   $form['#submit'] = 'islandora_elide_download_callback';
 
 }
 
-
+/**
+ * Callback function to elide or enable the download
+ */
 function islandora_elide_download_callback(&$form, &$form_state) {
     drupal_set_message('goddamit');
   module_load_include('inc', 'islandora_elide_download', 'includes/utilities');
@@ -63,7 +44,6 @@ function islandora_elide_download_callback(&$form, &$form_state) {
  * hook_process_islandora_large_image(). //will need to implement for each cmodel...
  * Deletes 'downloads' div if the object is listed in the db
  */
-
 function islandora_elide_download_process_islandora_large_image(&$variables) {
   $pid = $variables['islandora_object']->id;
   module_load_include('inc', 'islandora_elide_download', 'includes/utilities');
@@ -71,78 +51,3 @@ function islandora_elide_download_process_islandora_large_image(&$variables) {
     $variables['downloads'] = [];
   }
 }
-
-
-
-//way to go forward is not to alter things upon ingest.
-//I have seen no examples of modules in our repository, or online
-//If instead we use the collection managment tabs
-
-
-
-
-
-
-// function islandora_elide_download_process_islandora_ingest_form() {
-//
-// }
-
-/**
-* Implements hook_preprocess().
-*/
-
-// function islandora_elide_download_preprocess_islandora_large_image(&$variables) {
-//   dpm('something');
-// }
-
-/**
-* Implements hook_theme_registry_alter().
-*/
-
-// function islandora_elide_download_theme_registry_alter(&$theme_registry) {
-//   //dpm($theme_registry);
-//   $uri = request_uri();
-//   $pid = urldecode(str_replace('/islandora/object/', '', $uri));
-//   module_load_include('inc', 'islandora_elide_download','includes/utilities');
-//   if(islandora_elide_download_is_listed($pid)){
-//     if (isset($theme_registry['islandora_large_image'])) {
-//       //dpm('test');
-//       $module_path = drupal_get_path('module', 'islandora_elide_download');
-//       $theme_registry['islandora_large_image']['theme path'] = $module_path;
-//       $theme_registry['islandora_large_image']['path'] = $module_path . '/templates/';
-//     }
-//   }
-// }
-
-
-//just the ingest putting things in db without caring about choices
-
-/**
- * Implement hook_islandora_object_ingested().
- * //works like a charm with one item and works with gui batch ingest
- * but how do we tell if this batch or objet should be added to the db?
- */
-
-// function islandora_elide_download_islandora_object_ingested($object) {
-//   module_load_include('inc', 'islandora_elide_download', 'includes/utilities');
-//   islandora_elide_download_elide($object->id);
-// }
-
-/**
- * Implement hook_islandora_object_ingested().
- */
-
-// function islandora_elide_download_islandora_object_ingested($object) {
-//   // we can get access to object properties here
-//   // however this doesn't help us go from the ingest form (for individual item ingest)
-//   // where we need to determine if we should put the pid into the db
-//   // var_dump($object->id);
-//   // die();
-//   module_load_include('inc', 'islandora_elide_download', 'includes/utilities');
-//   islandora_elide_download_is_listed($object->id);
-//
-// }
-//
-// function islandora_elide_download_islandora_ingest_form_alter(&$form, &$form_state){
-//     //array_unshift($form['#submit'], 'islandora_elide_download_submit_handler');
-// }
