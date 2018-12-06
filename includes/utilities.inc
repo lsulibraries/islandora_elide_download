@@ -84,14 +84,3 @@ function islandora_elide_download_submit_handler(&$form, &$form_state) {
     $fn($arg,$pid);
   }
 }
-
-//unfortunately this part seems iffy
-
-//function islandora_elide_download_ingest_submit_handler(&$form, &$form_state) {
-//    drupal_set_message('goddamit');
-//  module_load_include('inc', 'islandora_elide_download', 'includes/utilities');
-//  $fn = 'islandora_elide_download_toggle_link';
-//  $arg = $form_state['toggle_elide_dl'] ? 'elide': 'enable';
-//  $pid = $form_state['islandora']['objectid'];
-//  $fn($arg,$pid);
-//}
